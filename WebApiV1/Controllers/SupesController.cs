@@ -16,8 +16,25 @@ namespace WebApiV1.Controllers
                     nombre = "Bruce",
                     apellido = "Wayne",
                     lugar = "Gotham City"
+                },
+                new Supes
+                {
+                    id = 2,
+                    name = "Superman",
+                    nombre = "Clark",
+                    apellido = "Kent",
+                    lugar = "Metropolis"
                 }
         };
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Supes>> Get(int id)
+        {
+            var heroe = supers.Find(x => x.id == id);
+            if (heroe == null)
+                return BadRequest("Super no encontrado");
+            return Ok(heroe);
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<Supes>>> Get()
