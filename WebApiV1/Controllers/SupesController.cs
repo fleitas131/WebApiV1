@@ -7,10 +7,7 @@ namespace WebApiV1.Controllers
     [ApiController]
     public class SupesController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<List<Supes>>> Get()
-        {
-            var supers = new List<Supes>()
+        private static List<Supes> supers = new List<Supes>()
             {
                 new Supes
                 {
@@ -20,8 +17,18 @@ namespace WebApiV1.Controllers
                     apellido = "Wayne",
                     lugar = "Gotham City"
                 }
-            };
+        };
 
+        [HttpGet]
+        public async Task<ActionResult<List<Supes>>> Get()
+        {
+            return Ok(supers);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<Supes>>> AddSupe(Supes supe)
+        {
+            supers.Add(supe);
             return Ok(supers);
         }
     }
