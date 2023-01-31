@@ -48,5 +48,31 @@ namespace WebApiV1.Controllers
             supers.Add(supe);
             return Ok(supers);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<Supes>>> UpdateSupe(Supes request)
+        {
+            var heroe = supers.Find(x => x.id == request.id);
+            if (heroe == null)
+                return BadRequest("Super no encontrado");
+            
+            heroe.name = request.name;
+            heroe.nombre = request.nombre;
+            heroe.apellido = request.apellido;
+            heroe.lugar = request.lugar;
+
+            return Ok(supers);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Supes>>> DeleteSupe(int id)
+        {
+            var heroe = supers.Find(x => x.id == id);
+            if (heroe == null)
+                return BadRequest("Super no encontrado");
+
+            supers.Remove(heroe);
+            return Ok(supers);
+        }
     }
 }
